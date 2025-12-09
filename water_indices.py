@@ -158,8 +158,8 @@ class WaterIndexCalculator:
         
         return water_mask.astype(np.uint8)
     
-    def calculate_water_extent(self, 
-                               green: np.ndarray, 
+    @staticmethod
+    def calculate_water_extent(green: np.ndarray, 
                                nir: np.ndarray, 
                                swir: Optional[np.ndarray] = None,
                                method: str = 'ndwi',
@@ -187,15 +187,15 @@ class WaterIndexCalculator:
             and water_mask is the binary classification
         """
         if method.lower() == 'ndwi':
-            water_index = self.calculate_ndwi(green, nir)
+            water_index = WaterIndexCalculator.calculate_ndwi(green, nir)
         elif method.lower() == 'mndwi':
             if swir is None:
                 raise ValueError("SWIR band is required for MNDWI calculation")
-            water_index = self.calculate_mndwi(green, swir)
+            water_index = WaterIndexCalculator.calculate_mndwi(green, swir)
         else:
             raise ValueError(f"Unknown method: {method}. Use 'ndwi' or 'mndwi'")
         
-        water_mask = self.threshold_water_mask(water_index, threshold)
+        water_mask = WaterIndexCalculator.threshold_water_mask(water_index, threshold)
         
         return water_index, water_mask
 
