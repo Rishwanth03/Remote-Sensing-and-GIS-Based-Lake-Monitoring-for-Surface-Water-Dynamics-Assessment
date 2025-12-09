@@ -13,16 +13,14 @@ import warnings
 
 class WaterIndexCalculator:
     """
-    A class for calculating water indices from satellite imagery.
+    A utility class for calculating water indices from satellite imagery.
     
-    This class provides methods to calculate NDWI and MNDWI, which are
+    This class provides static methods to calculate NDWI and MNDWI, which are
     widely used for water body detection and mapping from multispectral
     satellite imagery.
-    """
     
-    def __init__(self):
-        """Initialize the WaterIndexCalculator."""
-        pass
+    Note: All methods are static and can be called directly without instantiation.
+    """
     
     @staticmethod
     def calculate_ndwi(green: np.ndarray, nir: np.ndarray) -> np.ndarray:

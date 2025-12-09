@@ -170,16 +170,16 @@ class LakeVisualizer:
         eroded = ndimage.binary_erosion(boundary)
         boundary_pixels = boundary.astype(bool) & ~eroded
         
+        # Define color mapping
+        color_map = {
+            'red': [1, 0, 0, 1],
+            'blue': [0, 0, 1, 1],
+            'green': [0, 1, 0, 1]
+        }
+        
         # Create boundary visualization
         boundary_display = np.zeros((*water_mask.shape, 4))
-        if boundary_color == 'red':
-            boundary_display[boundary_pixels] = [1, 0, 0, 1]
-        elif boundary_color == 'blue':
-            boundary_display[boundary_pixels] = [0, 0, 1, 1]
-        elif boundary_color == 'green':
-            boundary_display[boundary_pixels] = [0, 1, 0, 1]
-        else:
-            boundary_display[boundary_pixels] = [1, 0, 0, 1]  # default to red
+        boundary_display[boundary_pixels] = color_map.get(boundary_color, [1, 0, 0, 1])  # default to red
         
         # Overlay boundary
         ax.imshow(boundary_display)
@@ -295,10 +295,11 @@ class LakeVisualizer:
         
         fig, axes = plt.subplots(rows, cols, figsize=(5*cols, 5*rows))
         
+        # Ensure axes is always a flat array for consistent indexing
         if n_images == 1:
-            axes = [axes]
+            axes = np.array([axes])
         else:
-            axes = axes.flatten() if rows > 1 or cols > 1 else [axes]
+            axes = axes.flatten()
         
         for i, (img, title, cmap) in enumerate(zip(images, titles, cmaps)):
             axes[i].imshow(img, cmap=cmap)
