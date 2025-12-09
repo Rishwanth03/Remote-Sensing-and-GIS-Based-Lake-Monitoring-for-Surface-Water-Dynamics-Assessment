@@ -1,0 +1,107 @@
+═══════════════════════════════════════════════════════════════════════════════
+                  ✨ EARTH ENGINE ACCOUNT ACTIVATION GUIDE
+═══════════════════════════════════════════════════════════════════════════════
+
+🔍 CURRENT STATUS: 
+   • Google Cloud IAM Permission: ✅ GRANTED (visible in screenshot)
+   • Earth Engine API: ⚠️  NEEDS ACTIVATION
+   • Error: "Caller does not have required permission to use project"
+
+═══════════════════════════════════════════════════════════════════════════════
+❓ WHAT'S HAPPENING?
+═══════════════════════════════════════════════════════════════════════════════
+
+You've successfully granted the IAM permission in Google Cloud Console ✓
+
+BUT Earth Engine is a SEPARATE service that needs its own activation:
+• Google Cloud Project ≠ Earth Engine Account
+• You need to activate Earth Engine access with your Gmail account
+• Then link it to your Google Cloud Project
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 QUICK FIX (3 STEPS - 5 MINUTES)
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: Activate Earth Engine Account
+────────────────────────────────────────
+
+1. Open: https://earthengine.google.com/signup/
+2. Click "Sign Up"
+3. Sign in with: rishwanthuk20@gmail.com
+4. Accept Terms of Service
+5. Click "Create Project"
+6. Google will create an Earth Engine account
+7. Wait for confirmation (2-5 minutes)
+
+Your Email: rishwanthuk20@gmail.com
+Your Project: lake-monitoring-rishwanth
+
+STEP 2: Verify Earth Engine Project Link
+────────────────────────────────────────
+
+1. Open: https://code.earthengine.google.com/
+2. Log in with: rishwanthuk20@gmail.com
+3. You should see Earth Engine Code Editor
+4. In top right, click "Assets" tab
+5. You should see your project
+
+STEP 3: Re-run the Pipeline
+────────────────────────────
+
+Open PowerShell and run:
+
+cd "c:\workspace\water change"
+.\venv\Scripts\Activate.ps1
+python src/main.py --quick --months 1
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 CHECKLIST
+═══════════════════════════════════════════════════════════════════════════════
+
+□ Visited https://earthengine.google.com/signup/
+□ Signed in with rishwanthuk20@gmail.com
+□ Created Earth Engine account
+□ Accepted Terms of Service
+□ Waited 2-5 minutes for account creation
+□ Verified at https://code.earthengine.google.com/
+□ Ready to run pipeline
+
+═══════════════════════════════════════════════════════════════════════════════
+🔗 IMPORTANT LINKS
+═══════════════════════════════════════════════════════════════════════════════
+
+Sign Up:        https://earthengine.google.com/signup/
+Code Editor:    https://code.earthengine.google.com/
+Documentation:  https://developers.google.com/earth-engine/guides/getstarted
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ ONCE COMPLETE
+═══════════════════════════════════════════════════════════════════════════════
+
+Once Earth Engine account is activated, the system will:
+
+1. ✓ Connect to Google Earth Engine
+2. ✓ Authenticate with rishwanthuk20@gmail.com
+3. ✓ Access lake-monitoring-rishwanth project
+4. ✓ Fetch 673 Sentinel-2 satellite images
+5. ✓ Calculate water extent
+6. ✓ Generate interactive maps
+7. ✓ Create time series analysis
+8. ✓ Export all results
+
+═══════════════════════════════════════════════════════════════════════════════
+💡 TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════════
+
+If you still get permission error after activating:
+
+1. Clear cache: Remove-Item "$env:APPDATA\earthengine" -Recurse -Force
+2. Wait 5 minutes for Google Cloud to fully propagate
+3. Check: Make sure rishwanthuk20@gmail.com is Owner/Editor on the project
+4. Try: python check_gee_setup.py to verify
+
+═══════════════════════════════════════════════════════════════════════════════
+
+Ready? Go to: https://earthengine.google.com/signup/
+
+═══════════════════════════════════════════════════════════════════════════════

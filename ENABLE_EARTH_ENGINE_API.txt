@@ -1,0 +1,74 @@
+═══════════════════════════════════════════════════════════════════════════════
+                   🔨 EARTH ENGINE PROJECT CONFIGURATION FIX
+═══════════════════════════════════════════════════════════════════════════════
+
+PROBLEM:
+  The project "lake-monitoring-rishwanth" doesn't have Earth Engine enabled
+  Earth Engine requires a separate setup from regular Google Cloud
+
+SOLUTION:
+  We need to ENABLE EARTH ENGINE on this project
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 3-STEP FIX (10 MINUTES)
+═══════════════════════════════════════════════════════════════════════════════
+
+STEP 1: Activate Earth Engine Account
+────────────────────────────────────────
+1. Go: https://earthengine.google.com/signup/
+2. Email: rishwanthuk20@gmail.com
+3. Click "Sign Up"
+4. Accept Terms
+5. Click "Create Project"
+6. Wait 2-5 minutes for email confirmation
+7. You'll get: "Earth Engine Project Created" email
+
+KEY: This creates an Earth Engine account linked to your Gmail
+
+STEP 2: Link Project to Earth Engine in Cloud Console
+────────────────────────────────────────────────────────
+1. Go: https://console.cloud.google.com/
+2. Select Project: lake-monitoring-rishwanth
+3. Go to: APIs & Services → Library
+4. Search: "Earth Engine"
+5. Click: Earth Engine API
+6. Click: ENABLE
+7. This links your Earth Engine account to this project
+
+STEP 3: Create Service Account (Optional but Recommended)
+───────────────────────────────────────────────────────────
+1. Go: https://console.cloud.google.com/iam-admin/serviceaccounts
+2. Project: lake-monitoring-rishwanth
+3. Click: CREATE SERVICE ACCOUNT
+4. Name: earth-engine-service
+5. Grant Roles: Owner
+6. Create JSON Key
+7. Download to: c:\workspace\water change\service-account-key.json
+8. Update .env:
+   GEE_SERVICE_ACCOUNT_KEY=./service-account-key.json
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ AFTER COMPLETION
+═══════════════════════════════════════════════════════════════════════════════
+
+Once you complete the 3 steps above, run:
+
+cd "c:\workspace\water change"
+.\venv\Scripts\Activate.ps1
+python src/main.py --quick --months 1
+
+The system will then:
+✓ Connect to Google Earth Engine
+✓ Fetch 673 Sentinel-2 images
+✓ Calculate water extent
+✓ Generate maps and reports
+
+═══════════════════════════════════════════════════════════════════════════════
+
+ESTIMATED TIME: 10-15 minutes total
+
+Current blocking issue: Earth Engine API not enabled on lake-monitoring-rishwanth
+
+Once enabled, system will work immediately!
+
+═══════════════════════════════════════════════════════════════════════════════

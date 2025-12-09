@@ -1,0 +1,161 @@
+═══════════════════════════════════════════════════════════════════════════════
+            🔧 TROUBLESHOOTING: EARTH ENGINE + GOOGLE CLOUD SETUP
+═══════════════════════════════════════════════════════════════════════════════
+
+CURRENT ERROR:
+  403 PERMISSION_DENIED
+  "Caller does not have required permission to use project lake-monitoring-rishwanth"
+
+═══════════════════════════════════════════════════════════════════════════════
+🔍 ROOT CAUSE ANALYSIS
+═══════════════════════════════════════════════════════════════════════════════
+
+The issue is that Earth Engine needs TWO things:
+
+1. ✅ IAM Permission on Google Cloud Project
+   └─ Status: DONE (rishwanthuk20@gmail.com is Owner on lake-monitoring-rishwanth)
+
+2. ❌ Earth Engine Account Activation + Service Account Configuration
+   └─ Status: INCOMPLETE
+   └─ Issue: Earth Engine needs a service account to access the project
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 COMPLETE SOLUTION (Choose ONE approach)
+═══════════════════════════════════════════════════════════════════════════════
+
+APPROACH A: Use Alternative Existing Project (FASTEST - 2 MINUTES)
+───────────────────────────────────────────────────────────────────
+
+If you have an existing Earth Engine-enabled project from before, use it:
+
+1. Check: Do you have another Google Cloud project ID that ALREADY works
+   with Earth Engine? (e.g., the old "sage-mind-476714-a4")
+
+2. If YES: Update .env to use that project:
+   
+   Open: c:\workspace\water change\.env
+   Change:  GEE_PROJECT_ID=lake-monitoring-rishwanth
+   To:      GEE_PROJECT_ID=<your-working-project-id>
+   
+3. Then run: python src/main.py --quick --months 1
+
+RESULT: System will work immediately ✓
+
+───────────────────────────────────────────────────────────────────
+APPROACH B: Set Up New Earth Engine Project (PROPER - 10 MINUTES)
+───────────────────────────────────────────────────────────────────
+
+1. ACTIVATE EARTH ENGINE ACCOUNT
+   URL: https://earthengine.google.com/signup/
+   Email: rishwanthuk20@gmail.com
+   Wait: 2-5 minutes for account creation
+
+2. LINK PROJECT TO EARTH ENGINE
+   a) Go: https://cloud.google.com/earth-engine/docs/setup
+   b) Follow: "Set Up a Cloud Project for Earth Engine"
+   c) Project: lake-monitoring-rishwanth
+   d) Note: Might need to create service account
+
+3. ENABLE EARTH ENGINE API
+   URL: https://console.cloud.google.com/apis/library/earthengine.googleapis.com
+   Project: lake-monitoring-rishwanth
+   Click: ENABLE
+
+4. CREATE SERVICE ACCOUNT (if required)
+   a) Go: https://console.cloud.google.com/iam-admin/serviceaccounts
+   b) Project: lake-monitoring-rishwanth
+   c) Click: CREATE SERVICE ACCOUNT
+   d) Name: earth-engine-service
+   e) Grant: Owner role
+   f) Create key: JSON format
+   g) Download key to: c:\workspace\water change\service_account_key.json
+
+5. AUTHENTICATE WITH SERVICE ACCOUNT
+   Run in PowerShell:
+   
+   cd "c:\workspace\water change"
+   .\venv\Scripts\Activate.ps1
+   $env:GOOGLE_APPLICATION_CREDENTIALS="$PWD\service_account_key.json"
+   python src/main.py --quick --months 1
+
+RESULT: System will work with new project ✓
+
+═══════════════════════════════════════════════════════════════════════════════
+📋 QUICK DECISION TREE
+═══════════════════════════════════════════════════════════════════════════════
+
+Do you have an EXISTING working Earth Engine project?
+│
+├─ YES → Use APPROACH A (2 minutes)
+│        └─ Update .env with that project ID
+│        └─ Run pipeline immediately
+│
+└─ NO → Use APPROACH B (10 minutes)
+        └─ Create new Earth Engine project
+        └─ Set up service account
+        └─ Authenticate and run
+
+
+═══════════════════════════════════════════════════════════════════════════════
+🚀 RECOMMENDED: APPROACH A (Fastest)
+═══════════════════════════════════════════════════════════════════════════════
+
+If you remember the old project ID (sage-mind-476714-a4 or similar):
+
+1. Edit .env file:
+   
+   OLD_PROJECT = sage-mind-476714-a4
+   
+   In PowerShell:
+   $env:GEE_PROJECT_ID = "OLD_PROJECT"
+   python src/main.py --quick --months 1
+
+2. This will use your previously working Earth Engine account
+
+3. System will run immediately
+
+═══════════════════════════════════════════════════════════════════════════════
+💡 IMPORTANT NOTE
+═══════════════════════════════════════════════════════════════════════════════
+
+Google Earth Engine accounts are FREE but:
+✓ Can only access through:
+  - Web Code Editor (code.earthengine.google.com)
+  - Python API (if authenticated properly)
+  - Cloud Console integration
+
+✓ Requires explicit project setup in Google Cloud
+
+✓ Takes 2-5 minutes to activate after signup
+
+═══════════════════════════════════════════════════════════════════════════════
+📞 SUPPORT
+═══════════════════════════════════════════════════════════════════════════════
+
+Need help? Check these resources:
+
+GEE Setup Docs:
+  https://developers.google.com/earth-engine/setup
+
+Cloud Project Setup:
+  https://cloud.google.com/earth-engine/docs/setup
+
+Service Account Setup:
+  https://cloud.google.com/iam/docs/service-accounts
+
+═══════════════════════════════════════════════════════════════════════════════
+
+WHAT WOULD YOU LIKE TO DO?
+
+Option 1: Use existing working project (APPROACH A)
+   → Tell me the old project ID
+   → I'll update .env and run immediately
+
+Option 2: Set up new Earth Engine project (APPROACH B)
+   → I'll guide you through setup steps
+
+Option 3: Create new Google Cloud project just for Earth Engine
+   → Most straightforward approach
+   → Takes ~15 minutes total
+
+═══════════════════════════════════════════════════════════════════════════════

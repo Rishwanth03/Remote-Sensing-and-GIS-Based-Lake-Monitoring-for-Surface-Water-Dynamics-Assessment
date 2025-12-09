@@ -1,0 +1,571 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║                    MULTI-REGION LAKE MONITORING SYSTEM                        ║
+║                        Expand Beyond Lake Victoria                             ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+════════════════════════════════════════════════════════════════════════════════
+📍 LAKE VICTORIA - REGIONS BREAKDOWN
+════════════════════════════════════════════════════════════════════════════════
+
+Lake Victoria spans 3 countries and has distinct regions:
+
+1. TANZANIAN WATERS (Southwest)
+   ├─ Coordinates: 2.5°S to 1°S, 31.5°E to 33°E
+   ├─ Area: ~40% of lake
+   ├─ Cities: Dar es Salaam, Zanzibar
+   ├─ Characteristics: Deeper waters, fishing grounds
+   └─ Monitoring Focus: Fish stocks, water quality
+
+2. KENYAN WATERS (East)
+   ├─ Coordinates: 1°S to 0.5°N, 33°E to 34°E
+   ├─ Area: ~6% of lake
+   ├─ Cities: Kisumu, Homa Bay
+   ├─ Characteristics: Shallow, agricultural influence
+   └─ Monitoring Focus: Algae blooms, agricultural runoff
+
+3. UGANDAN WATERS (North)
+   ├─ Coordinates: 0°N to 0.5°N, 31.5°E to 34°E
+   ├─ Area: ~43% of lake
+   ├─ Cities: Entebbe, Port Bell, Jinja
+   ├─ Characteristics: River inflows (Kagera, Nile)
+   └─ Monitoring Focus: Inflow volumes, sediment load
+
+4. CENTRAL BASIN
+   ├─ Coordinates: 0.5°S to 0.5°N, 32.5°E to 33.5°E
+   ├─ Area: ~11% of lake
+   ├─ Characteristics: Deepest waters
+   └─ Monitoring Focus: Overall water balance
+
+════════════════════════════════════════════════════════════════════════════════
+🌍 OTHER LAKES TO MONITOR
+════════════════════════════════════════════════════════════════════════════════
+
+You can easily expand to monitor other East African lakes:
+
+LAKE TANGANYIKA (Second Largest)
+├─ Location: 3°S to 8.5°S, 29°E to 31.5°E
+├─ Countries: Tanzania, DRC, Burundi, Zambia
+├─ Area: 32,900 km²
+├─ Depth: Deepest freshwater lake (1,470m)
+├─ Use Case: Deep water monitoring, endemic species protection
+└─ Current Config: Not yet monitored
+
+LAKE MALAWI (Lake Nyasa)
+├─ Location: 9.5°S to 14.5°S, 33.5°E to 35°E
+├─ Countries: Malawi, Tanzania, Mozambique
+├─ Area: 29,600 km²
+├─ Use Case: Fish conservation, water level tracking
+└─ Current Config: Not yet monitored
+
+LAKE KYOGA (Uganda)
+├─ Location: 1°N to 2°N, 33°E to 34°E
+├─ Area: 2,700 km²
+├─ Use Case: Local water supply, papyrus vegetation
+└─ Current Config: Not yet monitored
+
+LAKE EDWARD (Uganda/DRC)
+├─ Location: 0°N to 0.5°S, 29.5°E to 30.5°E
+├─ Area: 2,150 km²
+├─ Use Case: Wildlife monitoring, hippo tracking
+└─ Current Config: Not yet monitored
+
+LAKE ALBERT (Uganda/DRC)
+├─ Location: 1°N to 3°N, 30°E to 31.5°E
+├─ Area: 5,300 km²
+├─ Use Case: Oil field impacts, water resource management
+└─ Current Config: Not yet monitored
+
+════════════════════════════════════════════════════════════════════════════════
+💻 HOW TO SETUP MULTI-REGION MONITORING
+════════════════════════════════════════════════════════════════════════════════
+
+OPTION 1: MODIFY config.yaml FOR DIFFERENT REGIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1: Open config/config.yaml
+Step 2: Create entries for each region:
+
+---
+# Multiple Lake Regions Configuration
+
+lakes:
+  victoria_full:
+    name: "Lake Victoria - Full"
+    bounds: [31.5, -3.0, 35.0, 0.5]
+    center: [-1.0, 33.0]
+    area_km2: 68100
+    description: "Complete Lake Victoria monitoring"
+
+  victoria_tanzanian:
+    name: "Lake Victoria - Tanzanian Region"
+    bounds: [31.5, -2.5, 33.0, -1.0]
+    center: [-1.75, 32.25]
+    area_km2: 27240
+    description: "Southwest waters"
+    priority: "fishing"
+
+  victoria_kenyan:
+    name: "Lake Victoria - Kenyan Region"
+    bounds: [33.0, -1.0, 34.0, 0.5]
+    center: [-0.25, 33.5]
+    area_km2: 4086
+    description: "East waters (Kisumu area)"
+    priority: "algae_blooms"
+
+  victoria_ugandan:
+    name: "Lake Victoria - Ugandan Region"
+    bounds: [31.5, 0.0, 34.0, 0.5]
+    center: [0.25, 32.75]
+    area_km2: 29273
+    description: "North waters (Entebbe area)"
+    priority: "river_inflows"
+
+  victoria_central:
+    name: "Lake Victoria - Central Basin"
+    bounds: [32.5, -0.5, 33.5, 0.5]
+    center: [0.0, 33.0]
+    area_km2: 7507
+    description: "Deepest central waters"
+    priority: "water_balance"
+
+  tanganyika:
+    name: "Lake Tanganyika"
+    bounds: [29.0, -8.5, 31.5, -3.0]
+    center: [-5.75, 30.25]
+    area_km2: 32900
+    description: "Deep rift lake - Tanzania, DRC, Burundi, Zambia"
+
+  malawi:
+    name: "Lake Malawi"
+    bounds: [33.5, -14.5, 35.0, -9.5]
+    center: [-12.0, 34.25]
+    area_km2: 29600
+    description: "Southern lake - Malawi, Tanzania, Mozambique"
+
+satellite:
+  source: "COPERNICUS/S2_SR_HARMONIZED"
+  resolution: 10
+  cloud_cover_max: 20
+
+
+OPTION 2: CREATE SEPARATE CONFIGURATION FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1: Create new config files:
+  config/victoria_tanzanian.yaml
+  config/victoria_kenyan.yaml
+  config/victoria_ugandan.yaml
+  config/tanganyika.yaml
+  config/malawi.yaml
+
+Step 2: Run with specific config:
+  python src/main.py --config config/victoria_kenyan.yaml
+  python src/main.py --config config/tanganyika.yaml
+
+Example victoria_kenyan.yaml:
+─────────────────────────────
+lake:
+  name: "Lake Victoria - Kenyan Region"
+  bounds: [33.0, -1.0, 34.0, 0.5]
+  center: [-0.25, 33.5]
+
+satellite:
+  source: "COPERNICUS/S2_SR_HARMONIZED"
+  cloud_cover_max: 20
+
+analysis:
+  start_year: 2020
+  end_year: 2025
+  focus: "algae_blooms"
+  threshold_ndwi: 0.3
+
+
+OPTION 3: PYTHON SCRIPT FOR BATCH MONITORING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Create file: batch_monitor_lakes.py
+
+```python
+import subprocess
+import json
+from datetime import datetime
+
+# Define lakes to monitor
+lakes_config = {
+    "victoria_full": {
+        "bounds": [31.5, -3.0, 35.0, 0.5],
+        "center": [-1.0, 33.0],
+        "name": "Lake Victoria - Full"
+    },
+    "victoria_tanzanian": {
+        "bounds": [31.5, -2.5, 33.0, -1.0],
+        "center": [-1.75, 32.25],
+        "name": "Lake Victoria - Tanzanian Region"
+    },
+    "victoria_kenyan": {
+        "bounds": [33.0, -1.0, 34.0, 0.5],
+        "center": [-0.25, 33.5],
+        "name": "Lake Victoria - Kenyan Region"
+    },
+    "victoria_ugandan": {
+        "bounds": [31.5, 0.0, 34.0, 0.5],
+        "center": [0.25, 32.75],
+        "name": "Lake Victoria - Ugandan Region"
+    },
+    "tanganyika": {
+        "bounds": [29.0, -8.5, 31.5, -3.0],
+        "center": [-5.75, 30.25],
+        "name": "Lake Tanganyika"
+    },
+    "malawi": {
+        "bounds": [33.5, -14.5, 35.0, -9.5],
+        "center": [-12.0, 34.25],
+        "name": "Lake Malawi"
+    }
+}
+
+def run_lake_analysis(lake_id, bounds):
+    """Run analysis for a specific lake"""
+    print(f"\n{'='*70}")
+    print(f"🌍 Monitoring: {lakes_config[lake_id]['name']}")
+    print(f"{'='*70}")
+    
+    # Create temporary config
+    config = {
+        "bounds": bounds,
+        "center": lakes_config[lake_id]['center'],
+        "lake_id": lake_id,
+        "timestamp": datetime.now().isoformat()
+    }
+    
+    # Run analysis (modify main.py to accept lake parameters)
+    cmd = [
+        "python", "src/main.py",
+        "--lake", lake_id,
+        "--bounds", ",".join(map(str, bounds)),
+        "--quick"
+    ]
+    
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        print(result.stdout)
+        if result.returncode != 0:
+            print(f"Error: {result.stderr}")
+    except Exception as e:
+        print(f"Failed to process {lake_id}: {e}")
+
+def main():
+    """Process all lakes"""
+    print("\n🌏 MULTI-LAKE MONITORING SYSTEM")
+    print(f"Processing {len(lakes_config)} lakes at {datetime.now()}")
+    
+    results = {}
+    for lake_id, config in lakes_config.items():
+        run_lake_analysis(lake_id, config["bounds"])
+        results[lake_id] = {
+            "timestamp": datetime.now().isoformat(),
+            "status": "completed"
+        }
+    
+    # Save results summary
+    with open("outputs/multi_lake_summary.json", "w") as f:
+        json.dump(results, f, indent=2)
+    
+    print("\n✅ Multi-lake monitoring complete!")
+
+if __name__ == "__main__":
+    main()
+```
+
+Run batch monitoring:
+  python batch_monitor_lakes.py
+
+
+════════════════════════════════════════════════════════════════════════════════
+🗺️ MODIFY MAIN.PY FOR MULTI-REGION SUPPORT
+════════════════════════════════════════════════════════════════════════════════
+
+Add these parameters to src/main.py:
+
+```python
+import argparse
+
+def main():
+    parser = argparse.ArgumentParser()
+    
+    # Existing parameters
+    parser.add_argument('--quick', action='store_true')
+    parser.add_argument('--months', type=int, default=6)
+    parser.add_argument('--config', type=str, default='config/config.yaml')
+    
+    # New multi-region parameters
+    parser.add_argument('--lake', type=str, help='Lake ID to monitor')
+    parser.add_argument('--bounds', type=str, help='Comma-separated bounds: minlon,minlat,maxlon,maxlat')
+    parser.add_argument('--region', type=str, help='Region within lake: tanzanian, kenyan, ugandan, central')
+    parser.add_argument('--all-lakes', action='store_true', help='Monitor all configured lakes')
+    
+    args = parser.parse_args()
+    
+    # Parse bounds if provided
+    if args.bounds:
+        bounds = [float(x) for x in args.bounds.split(',')]
+        config['bounds'] = bounds
+    
+    # Handle region selection
+    if args.region:
+        region_bounds = get_region_bounds(args.region)
+        config['bounds'] = region_bounds
+    
+    # Run analysis
+    run_complete_analysis(config)
+
+def get_region_bounds(region):
+    """Get bounds for Lake Victoria regions"""
+    regions = {
+        'tanzanian': [31.5, -2.5, 33.0, -1.0],
+        'kenyan': [33.0, -1.0, 34.0, 0.5],
+        'ugandan': [31.5, 0.0, 34.0, 0.5],
+        'central': [32.5, -0.5, 33.5, 0.5]
+    }
+    return regions.get(region, None)
+```
+
+Then run specific regions:
+  python src/main.py --region tanzanian
+  python src/main.py --region kenyan
+  python src/main.py --region ugandan
+  python src/main.py --region central
+
+
+════════════════════════════════════════════════════════════════════════════════
+📊 CREATE REGIONAL DASHBOARDS
+════════════════════════════════════════════════════════════════════════════════
+
+Modify src/dashboard.py to show multiple regions:
+
+```python
+import streamlit as st
+import pandas as pd
+import folium
+from streamlit_folium import st_folium
+
+st.set_page_config(page_title="Lake Monitoring", layout="wide")
+
+st.title("🌍 Multi-Lake Monitoring Dashboard")
+
+# Sidebar for lake/region selection
+lake_choice = st.sidebar.selectbox(
+    "Select Lake Region",
+    [
+        "Lake Victoria - Full",
+        "Lake Victoria - Tanzanian",
+        "Lake Victoria - Kenyan",
+        "Lake Victoria - Ugandan",
+        "Lake Victoria - Central Basin",
+        "Lake Tanganyika",
+        "Lake Malawi",
+        "Lake Kyoga",
+        "Lake Edward"
+    ]
+)
+
+# Load data for selected lake
+lake_data = load_lake_data(lake_choice)
+
+# Create tabs
+tab1, tab2, tab3, tab4 = st.tabs(
+    ["Map", "Time Series", "Statistics", "Anomalies"]
+)
+
+with tab1:
+    st.subheader(f"📍 {lake_choice} Location")
+    # Create map for selected lake
+    map_obj = create_lake_map(lake_data)
+    st_folium(map_obj, width=1400)
+
+with tab2:
+    st.subheader("📈 Water Extent Trends")
+    st.plotly_chart(create_timeseries_chart(lake_data))
+
+with tab3:
+    st.subheader("📊 Statistics")
+    display_statistics(lake_data)
+
+with tab4:
+    st.subheader("🚨 Anomalies")
+    display_anomalies(lake_data)
+```
+
+Run enhanced dashboard:
+  streamlit run src/dashboard.py
+
+
+════════════════════════════════════════════════════════════════════════════════
+🔄 AUTOMATED MULTI-REGION MONITORING SCHEDULE
+════════════════════════════════════════════════════════════════════════════════
+
+Create scheduler: schedule_monitoring.py
+
+```python
+import schedule
+import time
+from datetime import datetime
+
+def monitor_all_regions():
+    """Run monitoring for all Lake Victoria regions"""
+    regions = ['tanzanian', 'kenyan', 'ugandan', 'central']
+    
+    for region in regions:
+        print(f"[{datetime.now()}] Monitoring Lake Victoria - {region}")
+        subprocess.run([
+            "python", "src/main.py",
+            "--region", region,
+            "--quick"
+        ])
+        print(f"✓ Completed {region}")
+
+def monitor_other_lakes():
+    """Run monitoring for other lakes"""
+    lakes = ['tanganyika', 'malawi', 'kyoga']
+    
+    for lake in lakes:
+        print(f"[{datetime.now()}] Monitoring {lake.title()}")
+        subprocess.run([
+            "python", "src/main.py",
+            "--lake", lake,
+            "--quick"
+        ])
+
+# Schedule daily monitoring
+schedule.every().day.at("02:00").do(monitor_all_regions)
+schedule.every().day.at("03:00").do(monitor_other_lakes)
+
+# Keep scheduler running
+while True:
+    schedule.run_pending()
+    time.sleep(60)
+```
+
+Run scheduler:
+  python schedule_monitoring.py
+
+
+════════════════════════════════════════════════════════════════════════════════
+📈 VIEW REGIONAL COMPARISONS
+════════════════════════════════════════════════════════════════════════════════
+
+Create comparison dashboard: compare_regions.py
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load data from all regions
+regions_data = {
+    'tanzanian': load_timeseries('outputs/victoria_tanzanian/timeseries.csv'),
+    'kenyan': load_timeseries('outputs/victoria_kenyan/timeseries.csv'),
+    'ugandan': load_timeseries('outputs/victoria_ugandan/timeseries.csv'),
+    'central': load_timeseries('outputs/victoria_central/timeseries.csv')
+}
+
+# Create comparison plots
+fig, axes = plt.subplots(2, 2, figsize=(15, 10))
+
+for (region, data), ax in zip(regions_data.items(), axes.flat):
+    ax.plot(data['date'], data['water_extent'], label=region)
+    ax.set_title(f"Lake Victoria - {region.title()}")
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Water Extent (km²)")
+    ax.legend()
+    ax.grid(True)
+
+plt.tight_layout()
+plt.savefig('outputs/regional_comparison.png', dpi=300)
+plt.show()
+
+# Summary statistics
+summary = pd.DataFrame({
+    'Region': list(regions_data.keys()),
+    'Mean': [data['water_extent'].mean() for data in regions_data.values()],
+    'Max': [data['water_extent'].max() for data in regions_data.values()],
+    'Min': [data['water_extent'].min() for data in regions_data.values()],
+    'Std': [data['water_extent'].std() for data in regions_data.values()]
+})
+
+print("\n📊 Regional Comparison Summary:")
+print(summary)
+```
+
+Run comparison:
+  python compare_regions.py
+
+
+════════════════════════════════════════════════════════════════════════════════
+🎯 QUICK START: MONITOR SPECIFIC REGION
+════════════════════════════════════════════════════════════════════════════════
+
+TO MONITOR KENYAN WATERS:
+  1. Open config/config.yaml
+  2. Change bounds to: [33.0, -1.0, 34.0, 0.5]
+  3. Change center to: [-0.25, 33.5]
+  4. Run: python src/main.py --quick --months 1
+  5. Results appear in outputs/
+
+TO MONITOR TANZANIAN WATERS:
+  1. Change bounds to: [31.5, -2.5, 33.0, -1.0]
+  2. Change center to: [-1.75, 32.25]
+  3. Run: python src/main.py --quick --months 1
+  4. Results appear in outputs/
+
+TO MONITOR UGANDAN WATERS:
+  1. Change bounds to: [31.5, 0.0, 34.0, 0.5]
+  2. Change center to: [0.25, 32.75]
+  3. Run: python src/main.py --quick --months 1
+  4. Results appear in outputs/
+
+
+════════════════════════════════════════════════════════════════════════════════
+🗺️ COORDINATE REFERENCE GUIDE
+════════════════════════════════════════════════════════════════════════════════
+
+LAKE VICTORIA REGIONS:
+┌─────────────────┬────────────────────────┬──────────────────┐
+│ Region          │ Bounds (lon,lat,lon,la)│ Center (lat,lon) │
+├─────────────────┼────────────────────────┼──────────────────┤
+│ Full Lake       │ 31.5,-3.0,35.0,0.5    │ -1.0, 33.0       │
+│ Tanzanian       │ 31.5,-2.5,33.0,-1.0   │ -1.75, 32.25     │
+│ Kenyan          │ 33.0,-1.0,34.0,0.5    │ -0.25, 33.5      │
+│ Ugandan         │ 31.5,0.0,34.0,0.5     │ 0.25, 32.75      │
+│ Central Basin   │ 32.5,-0.5,33.5,0.5    │ 0.0, 33.0        │
+└─────────────────┴────────────────────────┴──────────────────┘
+
+OTHER LAKES:
+┌─────────────────┬────────────────────────┬──────────────────┐
+│ Lake Tanganyika │ 29.0,-8.5,31.5,-3.0   │ -5.75, 30.25     │
+│ Lake Malawi     │ 33.5,-14.5,35.0,-9.5  │ -12.0, 34.25     │
+│ Lake Kyoga      │ 32.0,1.0,34.0,2.0     │ 1.5, 33.0        │
+│ Lake Edward     │ 29.5,0.0,30.5,-0.5    │ -0.25, 30.0      │
+│ Lake Albert     │ 30.0,1.0,31.5,3.0     │ 2.0, 30.75       │
+└─────────────────┴────────────────────────┴──────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════════
+✨ NEXT STEPS
+════════════════════════════════════════════════════════════════════════════════
+
+1. ✅ IMMEDIATE: Modify config.yaml bounds to monitor specific region
+2. ✅ QUICK: Use regional coordinates table above
+3. ✅ ADVANCED: Create separate config files for each region
+4. ✅ PROFESSIONAL: Set up batch monitoring script
+5. ✅ PRODUCTION: Deploy automated scheduler
+
+Your system can monitor:
+  ✓ All 5 Lake Victoria regions simultaneously
+  ✓ Lake Tanganyika (deep water monitoring)
+  ✓ Lake Malawi (southern lakes)
+  ✓ Smaller lakes (Kyoga, Edward, Albert)
+  ✓ Custom water bodies (rivers, reservoirs)
+
+════════════════════════════════════════════════════════════════════════════════
