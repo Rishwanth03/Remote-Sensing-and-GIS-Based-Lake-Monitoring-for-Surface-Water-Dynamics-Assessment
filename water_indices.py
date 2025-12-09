@@ -142,12 +142,15 @@ class WaterIndexCalculator:
             try:
                 from skimage.filters import threshold_otsu
                 # Normalize to 0-255 range for Otsu
-                normalized = ((valid_index - valid_index.min()) / 
-                             (valid_index.max() - valid_index.min()) * 255).astype(np.uint8)
-                threshold_value = threshold_otsu(normalized)
-                # Convert back to original range
-                threshold = (threshold_value / 255.0 * 
-                           (valid_index.max() - valid_index.min()) + valid_index.min())
+                value_range = valid_index.max() - valid_index.min()
+                if value_range > 0:
+                    normalized = ((valid_index - valid_index.min()) / value_range * 255).astype(np.uint8)
+                    threshold_value = threshold_otsu(normalized)
+                    # Convert back to original range
+                    threshold = (threshold_value / 255.0 * value_range + valid_index.min())
+                else:
+                    # All values are identical, use default threshold
+                    warnings.warn("All index values are identical. Using default threshold.")
             except ImportError:
                 warnings.warn("scikit-image not available. Using default threshold.")
         
@@ -215,8 +218,7 @@ def calculate_ndwi(green: np.ndarray, nir: np.ndarray) -> np.ndarray:
     np.ndarray
         NDWI values
     """
-    calculator = WaterIndexCalculator()
-    return calculator.calculate_ndwi(green, nir)
+    return WaterIndexCalculator.calculate_ndwi(green, nir)
 
 
 def calculate_mndwi(green: np.ndarray, swir: np.ndarray) -> np.ndarray:
@@ -235,8 +237,7 @@ def calculate_mndwi(green: np.ndarray, swir: np.ndarray) -> np.ndarray:
     np.ndarray
         MNDWI values
     """
-    calculator = WaterIndexCalculator()
-    return calculator.calculate_mndwi(green, swir)
+    return WaterIndexCalculator.calculate_mndwi(green, swir)
 
 
 def extract_water_mask(water_index: np.ndarray, 
@@ -259,5 +260,4 @@ def extract_water_mask(water_index: np.ndarray,
     np.ndarray
         Binary water mask
     """
-    calculator = WaterIndexCalculator()
-    return calculator.threshold_water_mask(water_index, threshold, use_otsu)
+    return WaterIndexCalculator.threshold_water_mask(water_index, threshold, use_otsu)

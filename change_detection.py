@@ -234,8 +234,7 @@ def detect_change(mask_t1: np.ndarray, mask_t2: np.ndarray) -> Tuple[np.ndarray,
     tuple
         (change_map, statistics)
     """
-    detector = ChangeDetector()
-    return detector.detect_water_change(mask_t1, mask_t2)
+    return ChangeDetector.detect_water_change(mask_t1, mask_t2)
 
 
 def calculate_area(water_mask: np.ndarray, pixel_size: float = 30.0) -> Dict[str, float]:
@@ -254,5 +253,4 @@ def calculate_area(water_mask: np.ndarray, pixel_size: float = 30.0) -> Dict[str
     dict
         Area statistics
     """
-    detector = ChangeDetector()
-    return detector.calculate_water_area(water_mask, pixel_size)
+    return ChangeDetector.calculate_water_area(water_mask, pixel_size)

@@ -5,6 +5,7 @@ This script runs basic unit tests on the core modules to ensure they work correc
 """
 
 import numpy as np
+import matplotlib.pyplot as plt
 from image_reader import SatelliteImageReader, create_demo_image
 from water_indices import WaterIndexCalculator, calculate_ndwi, calculate_mndwi
 from change_detection import ChangeDetector, detect_change
@@ -121,7 +122,6 @@ def test_visualization():
     # Test water index visualization (don't save)
     try:
         fig = visualizer.visualize_water_index(water_index, title="Test NDWI")
-        import matplotlib.pyplot as plt
         plt.close(fig)
     except Exception as e:
         raise AssertionError(f"Water index visualization failed: {e}")

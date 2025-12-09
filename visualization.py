@@ -368,6 +368,10 @@ class LakeVisualizer:
         return fig
 
 
+# Module-level instance for convenience functions
+_default_visualizer = LakeVisualizer()
+
+
 def plot_water_index(water_index: np.ndarray,
                     title: str = "Water Index",
                     save_path: Optional[str] = None) -> plt.Figure:
@@ -388,8 +392,7 @@ def plot_water_index(water_index: np.ndarray,
     plt.Figure
         The created figure
     """
-    visualizer = LakeVisualizer()
-    return visualizer.visualize_water_index(water_index, title, save_path=save_path)
+    return _default_visualizer.visualize_water_index(water_index, title, save_path=save_path)
 
 
 def plot_water_mask(water_mask: np.ndarray,
@@ -412,8 +415,7 @@ def plot_water_mask(water_mask: np.ndarray,
     plt.Figure
         The created figure
     """
-    visualizer = LakeVisualizer()
-    return visualizer.visualize_water_mask(water_mask, title, save_path=save_path)
+    return _default_visualizer.visualize_water_mask(water_mask, title, save_path=save_path)
 
 
 def plot_change_map(change_map: np.ndarray,
@@ -436,5 +438,4 @@ def plot_change_map(change_map: np.ndarray,
     plt.Figure
         The created figure
     """
-    visualizer = LakeVisualizer()
-    return visualizer.visualize_change_detection(change_map, title, save_path=save_path)
+    return _default_visualizer.visualize_change_detection(change_map, title, save_path=save_path)
